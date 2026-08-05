@@ -29,17 +29,43 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 def get_path(filename: str) -> str:
     return os.path.join(BASE_DIR, filename)
 
-# Load the pre-trained artifacts
+scaler = None
+gb_match = None
+gb_survival = None
+kmf = None
+feature_names = ['Predicted_Survival_Chance', 'RealTime_Organ_HealthScore', 'Blood_Compatible', 'Organ_Match', 'Patient_Age', 'Donor_Age', 'Organ_Condition_Score', 'Abs_Age_Diff', 'Patient_BMI', 'Donor_Weight']
+
 try:
     scaler = joblib.load(get_path('scaler.joblib'))
-    gb_match = joblib.load(get_path('gb_match_model.joblib'))
-    gb_survival = joblib.load(get_path('gb_survival_model.joblib'))
-    kmf = joblib.load(get_path('kmf_model.joblib'))
-    feature_names = joblib.load(get_path('feature_names.joblib'))
-    print("[OK] Successfully loaded all 5 AI artifacts.")
+    print("[OK] Loaded scaler.joblib")
 except Exception as e:
-    print(f"[ERROR] Error loading artifacts: {e}")
-    scaler, gb_match, gb_survival, kmf, feature_names = None, None, None, None, []
+    print(f"[ERROR] Loading scaler.joblib: {e}")
+
+try:
+    gb_match = joblib.load(get_path('gb_match_model.joblib'))
+    print("[OK] Loaded gb_match_model.joblib")
+except Exception as e:
+    print(f"[ERROR] Loading gb_match_model.joblib: {e}")
+
+try:
+    gb_survival = joblib.load(get_path('gb_survival_model.joblib'))
+    print("[OK] Loaded gb_survival_model.joblib")
+except Exception as e:
+    print(f"[ERROR] Loading gb_survival_model.joblib: {e}")
+
+try:
+    kmf = joblib.load(get_path('kmf_model.joblib'))
+    print("[OK] Loaded kmf_model.joblib")
+except Exception as e:
+    print(f"[ERROR] Loading kmf_model.joblib: {e}")
+
+try:
+    loaded_features = joblib.load(get_path('feature_names.joblib'))
+    if loaded_features is not None:
+        feature_names = list(loaded_features)
+    print("[OK] Loaded feature_names.joblib")
+except Exception as e:
+    print(f"[ERROR] Loading feature_names.joblib: {e}")
 
 # Incoming Data Schema
 class DonorRecipientPair(BaseModel):
@@ -61,7 +87,7 @@ def health_check():
     return {
         "status": "Online",
         "engine": "AuraChain AI Executive Engine",
-        "models_loaded": all(m is not None for m in [scaler, gb_match, gb_survival, kmf]),
+        "models_loaded": all(m is not None for m in [scaler, gb_match, gb_survival]),
         "features": list(feature_names)
     }
 
