@@ -51,7 +51,15 @@ export default function BlockchainLedger({ result, formData }) {
   const terminalEndRef = useRef(null);
   const certRef = useRef(null);
 
-  const HARDHAT_RPC_URL = 'http://127.0.0.1:8545';
+  const getRpcUrl = () => {
+    if (import.meta.env.VITE_RPC_URL) return import.meta.env.VITE_RPC_URL;
+    const apiBase = import.meta.env.VITE_API_BASE !== undefined 
+      ? import.meta.env.VITE_API_BASE 
+      : (import.meta.env.DEV ? 'http://127.0.0.1:8000' : '');
+    return `${apiBase}/api/rpc`;
+  };
+
+  const HARDHAT_RPC_URL = getRpcUrl();
 
   // Auto-scroll terminal log
   useEffect(() => {

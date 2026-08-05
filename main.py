@@ -1,9 +1,14 @@
 import os
+import sys
 import hashlib
+import subprocess
+import time
+import urllib.request
+import json
 import numpy as np
 import pandas as pd
 import joblib
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 from scipy.optimize import linear_sum_assignment
@@ -25,6 +30,80 @@ app.add_middleware(
 
 # Determine path to artifacts
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+# Hardhat Node Background Launcher & Contract Deployer
+def ensure_hardhat_node():
+    blockchain_dir = os.path.join(BASE_DIR, 'blockchain')
+    if not os.path.exists(blockchain_dir):
+        return
+
+    # Check if npm node_modules exist in blockchain/
+    node_modules = os.path.join(blockchain_dir, 'node_modules')
+    if not os.path.exists(node_modules):
+        try:
+            print("[INFO] Installing blockchain node_modules...")
+            subprocess.run(["npm", "install"], cwd=blockchain_dir, check=False, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        except Exception as e:
+            print(f"[WARN] npm install skipped: {e}")
+
+    # Check if Hardhat node is already running on 8545
+    try:
+        req = urllib.request.Request(
+            "http://127.0.0.1:8545",
+            data=b'{"jsonrpc":"2.0","method":"eth_blockNumber","params":[],"id":1}',
+            headers={'Content-Type': 'application/json'}
+        )
+        with urllib.request.urlopen(req, timeout=1) as resp:
+            print("[OK] Hardhat EVM node is active on port 8545.")
+            return
+    except Exception:
+        pass
+
+    try:
+        print("[INFO] Starting background Hardhat EVM Node on port 8545...")
+        subprocess.Popen(["npx", "hardhat", "node"], cwd=blockchain_dir, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        time.sleep(3.5)
+        subprocess.Popen(["npx", "hardhat", "run", "scripts/deploy.js", "--network", "localhost"], cwd=blockchain_dir, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        print("[OK] Hardhat node started and AuraChainLedger contract deployed!")
+    except Exception as e:
+        print(f"[WARN] Could not start Hardhat background node: {e}")
+
+try:
+    ensure_hardhat_node()
+except Exception as e:
+    print(f"[WARN] Startup hardhat check exception: {e}")
+
+@app.api_route("/rpc", methods=["GET", "POST", "OPTIONS"])
+@app.api_route("/api/rpc", methods=["GET", "POST", "OPTIONS"])
+async def rpc_proxy(request: Request):
+    if request.method == "OPTIONS":
+        return Response(status_code=200, headers={
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
+            "Access-Control-Allow-Headers": "*"
+        })
+
+    body = await request.body()
+    try:
+        req = urllib.request.Request(
+            "http://127.0.0.1:8545",
+            data=body if body else None,
+            headers={'Content-Type': 'application/json'}
+        )
+        with urllib.request.urlopen(req, timeout=10) as resp:
+            content = resp.read()
+            return Response(
+                content=content,
+                media_type="application/json",
+                headers={"Access-Control-Allow-Origin": "*"}
+            )
+    except Exception as e:
+        return Response(
+            content=json.dumps({"jsonrpc": "2.0", "error": {"code": -32603, "message": f"Render RPC Proxy: {str(e)}"}, "id": 1}),
+            status_code=500,
+            media_type="application/json",
+            headers={"Access-Control-Allow-Origin": "*"}
+        )
 
 def get_path(filename: str) -> str:
     return os.path.join(BASE_DIR, filename)
