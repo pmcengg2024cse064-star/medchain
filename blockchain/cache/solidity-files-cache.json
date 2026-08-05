@@ -1,0 +1,41 @@
+{
+  "_format": "hh-sol-cache-2",
+  "files": {
+    "C:\\Users\\nagac\\OneDrive\\Desktop\\aurachain-backend\\blockchain\\contracts\\AuraChainLedger.sol": {
+      "lastModificationDate": 1785732256120,
+      "contentHash": "b10bbb3327e67916210efa1554ff312f",
+      "sourceName": "contracts/AuraChainLedger.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.20"
+      ],
+      "artifacts": [
+        "AuraChainLedger"
+      ]
+    }
+  }
+}

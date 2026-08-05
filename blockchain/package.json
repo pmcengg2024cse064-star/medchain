@@ -1,0 +1,16 @@
+{
+  "name": "aurachain-blockchain",
+  "version": "1.0.0",
+  "description": "AuraChain Organ Allocation Hardhat EVM Smart Contracts",
+  "main": "index.js",
+  "scripts": {
+    "node": "hardhat node",
+    "compile": "hardhat compile",
+    "deploy": "hardhat run scripts/deploy.js --network localhost",
+    "deploy:ignition": "hardhat ignition deploy ./ignition/modules/AuraChainLedger.js --network localhost"
+  },
+  "dependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "hardhat": "^2.22.0"
+  }
+}

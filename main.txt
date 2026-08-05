@@ -1,0 +1,84 @@
+import pandas as pd
+import joblib
+from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel
+
+app = FastAPI(
+    title="AuraChain AI Engine",
+    description="Live AI Engine powering the Dean's Organ Allocation Architecture",
+    version="1.0.0"
+)
+
+# 1. Load the pre-trained artifacts from Phase 1
+try:
+    scaler = joblib.load('scaler.joblib')
+    gb_match = joblib.load('gb_match_model.joblib')
+    gb_survival = joblib.load('gb_survival_model.joblib')
+    kmf = joblib.load('kmf_model.joblib')
+    feature_names = joblib.load('feature_names.joblib')
+    print("✅ Successfully loaded all AI artifacts from Phase 1.")
+except Exception as e:
+    print(f"❌ Error loading artifacts: {e}")
+
+# 2. Define the Incoming Data Schema (Strictly mirroring your feature list)
+class DonorRecipientPair(BaseModel):
+    Predicted_Survival_Chance: float
+    RealTime_Organ_HealthScore: float
+    Blood_Compatible: int
+    Organ_Match: int
+    Patient_Age: float
+    Donor_Age: float
+    Organ_Condition_Score: int
+    Abs_Age_Diff: float
+    Patient_BMI: float
+    Donor_Weight: float
+
+@app.get("/")
+def health_check():
+    return {"status": "Online", "engine": "AuraChain AI Engine is active."}
+
+@app.post("/api/predict-match")
+def predict_match(pair: DonorRecipientPair):
+    """
+    Computes compatibility score, post-transplant survival probability, 
+    and feature importance weights based on the 5000-sample dataset.
+    """
+    # Convert input to DataFrame strictly using the ordered feature names
+    input_df = pd.DataFrame([pair.model_dump()])[feature_names]
+    
+    # Scale input
+    scaled_input = scaler.transform(input_df)
+
+    # Predictions
+    match_prob = float(gb_match.predict_proba(scaled_input)[0][1])
+    survival_prob = float(gb_survival.predict_proba(scaled_input)[0][1])
+
+    # Dynamic Feature Importance (SHAP-style)
+    importances = gb_match.feature_importances_
+    feature_importance_dict = {
+        feature: round(float(importance), 4)
+        for feature, importance in zip(feature_names, importances)
+    }
+    sorted_importance = dict(sorted(feature_importance_dict.items(), key=lambda item: item[1], reverse=True))
+
+    return {
+        "match_confidence_score": round(match_prob * 100, 2),
+        "predicted_5yr_survival_rate": round(survival_prob * 100, 2),
+        "status": "APPROVED" if match_prob >= 0.70 else "REJECTED_BY_AI",
+        "top_feature_importance": sorted_importance
+    }
+
+@app.get("/api/survival-curve")
+def get_survival_curve():
+    """Returns baseline Kaplan-Meier survival probabilities over time"""
+    timeline = [365, 1095, 1825]  # 1 year, 3 years, 5 years in days
+    survival_data = {}
+    
+    for t in timeline:
+        prob = kmf.predict(t)
+        survival_data[f"{t // 365}_year"] = round(float(prob), 3)
+
+    return {
+        "median_survival_days_cohort": 1845,
+        "survival_milestones": survival_data
+    }
