@@ -29,6 +29,29 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 def get_path(filename: str) -> str:
     return os.path.join(BASE_DIR, filename)
 
+# Unpickling compatibility layer for scikit-learn loss class renames across scikit-learn versions
+import sys
+try:
+    import sklearn._loss.loss as _loss_mod
+    sys.modules['_loss'] = _loss_mod
+    sys.modules['sklearn._loss'] = _loss_mod
+    for old_name, new_name in [
+        ('CyHalfBinomialLoss', 'HalfBinomialLoss'),
+        ('CyHalfMultinomialLoss', 'HalfMultinomialLoss'),
+        ('CyHalfPoissonLoss', 'HalfPoissonLoss'),
+        ('CyHalfGammaLoss', 'HalfGammaLoss'),
+        ('CyHalfTweedieLoss', 'HalfTweedieLoss'),
+        ('CyPinballLoss', 'PinballLoss'),
+        ('CySquaredError', 'SquaredError'),
+        ('CyAbsoluteError', 'AbsoluteError'),
+    ]:
+        if hasattr(_loss_mod, new_name) and not hasattr(_loss_mod, old_name):
+            setattr(_loss_mod, old_name, getattr(_loss_mod, new_name))
+        elif hasattr(_loss_mod, old_name) and not hasattr(_loss_mod, new_name):
+            setattr(_loss_mod, new_name, getattr(_loss_mod, old_name))
+except Exception as _e:
+    print(f"[WARN] Could not patch sklearn._loss compatibility: {_e}")
+
 scaler = None
 gb_match = None
 gb_survival = None
