@@ -66,7 +66,7 @@ export default function App() {
   const checkHealth = async () => {
     setIsChecking(true);
     try {
-      const res = await fetch(`${API_BASE}/`);
+      const res = await fetch(`${API_BASE}/api/health`);
       if (res.ok) {
         setIsConnected(true);
       } else {

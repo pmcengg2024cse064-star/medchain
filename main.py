@@ -55,6 +55,8 @@ class DonorRecipientPair(BaseModel):
     Donor_Weight: float = Field(..., description="Donor weight in kg")
 
 @app.get("/")
+@app.get("/api")
+@app.get("/api/health")
 def health_check():
     return {
         "status": "Online",
