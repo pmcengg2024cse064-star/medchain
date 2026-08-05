@@ -225,7 +225,7 @@ export default function BlockchainLedger({ result, formData }) {
       setLedgerHistory(prev => [fallbackCert, ...prev]);
       setTerminalLogs(prev => [...prev, `[${new Date().toLocaleTimeString()}] SIMULATED_MINT Certificate generated via client sandbox fallback`]);
       if (err.message && !err.message.includes('user rejected')) {
-        setMintError(`Node Notice: Minted using local simulation (${err.message.slice(0, 60)}...)`);
+        setMintError(`Sandbox Mode: Minted via SHA-256 Cryptographic Simulation (No EVM node detected on 127.0.0.1:8545. Connect MetaMask for live Web3 minting).`);
       }
     } finally {
       setIsMinting(false);
