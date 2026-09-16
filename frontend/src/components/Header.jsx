@@ -38,17 +38,14 @@ export default function Header({
           
           {/* Logo & Title */}
           <div className="flex items-center gap-3">
-            <div className="p-2.5 bg-gradient-to-tr from-indigo-600 via-cyan-500 to-emerald-400 rounded-2xl shadow-lg shadow-indigo-500/20 animate-pulse">
+            <div className="p-2.5 bg-gradient-to-tr from-indigo-600 via-cyan-500 to-emerald-400 rounded-2xl shadow-lg shadow-indigo-500/20 animate-pulse flex-shrink-0">
               <Cpu className="w-7 h-7 text-white" />
             </div>
             <div>
-              <div className="flex items-center gap-2">
-                <h1 className="text-2xl font-black bg-gradient-to-r from-white via-slate-200 to-indigo-300 bg-clip-text text-transparent tracking-tight">
-                  AuraChain AI
+              <div className="flex flex-wrap items-center gap-2">
+                <h1 className="text-lg sm:text-xl font-black bg-gradient-to-r from-white via-slate-200 to-indigo-300 bg-clip-text text-transparent tracking-tight">
+                  AI-Driven Organ Matching and Transplantation System for Donor-Recipient Matching and Survival Outcomes
                 </h1>
-                <span className="px-2.5 py-0.5 text-xs font-bold tracking-wide bg-indigo-500/10 text-indigo-400 border border-indigo-500/30 rounded-full uppercase font-mono">
-                  Executive Suite
-                </span>
               </div>
               <p className="text-xs text-slate-400 font-medium mt-0.5">
                 Organ Allocation &bull; DeepSurv Analytics &bull; Hyperledger &amp; EVM Provenance

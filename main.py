@@ -14,7 +14,7 @@ from pydantic import BaseModel, Field
 from scipy.optimize import linear_sum_assignment
 
 app = FastAPI(
-    title="AuraChain AI Executive Engine",
+    title="AI-Driven Organ Matching and Transplantation System for Donor-Recipient Matching and Survival Outcomes",
     description="Live AI Engine powering Organ Allocation Architecture & Survival Analytics",
     version="1.0.0"
 )
@@ -188,7 +188,7 @@ class DonorRecipientPair(BaseModel):
 def health_check():
     return {
         "status": "Online",
-        "engine": "AuraChain AI Executive Engine",
+        "engine": "AI-Driven Organ Matching and Transplantation System for Donor-Recipient Matching and Survival Outcomes",
         "models_loaded": all(m is not None for m in [scaler, gb_match, gb_survival]),
         "features": list(feature_names)
     }

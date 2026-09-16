@@ -261,7 +261,7 @@ export default function App() {
 
       {/* Footer */}
       <footer className="border-t border-slate-900 py-6 text-center text-xs text-slate-500">
-        <p>AuraChain AI Executive Dashboard &copy; 2026. Built with Hardhat, Solidity, ethers.js, Framer Motion, FastAPI &amp; React Vite.</p>
+        <p>AI-Driven Organ Matching and Transplantation System for Donor-Recipient Matching and Survival Outcomes &copy; 2026. Built with Hardhat, Solidity, ethers.js, Framer Motion, FastAPI &amp; React Vite.</p>
       </footer>
     </div>
   );
