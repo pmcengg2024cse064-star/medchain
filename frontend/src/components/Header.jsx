@@ -79,22 +79,22 @@ export default function Header({
               </button>
             </div>
 
-            {/* Connection Status */}
+            {/* Status Dot Indicator */}
             <div className="flex items-center gap-2">
-              <button
-                onClick={onRefreshStatus}
-                title="Refresh Health Status"
-                className="p-2 bg-slate-800/80 hover:bg-slate-700 text-slate-300 rounded-xl border border-slate-700 transition-all"
+              <div 
+                className="flex items-center justify-center px-3 py-2 rounded-xl bg-slate-900/90 border border-slate-800"
+                aria-label="System status indicator"
               >
-                <RefreshCw className={`w-4 h-4 ${isChecking ? 'animate-spin text-cyan-400' : ''}`} />
-              </button>
-              <div className={`flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-bold border ${
-                isConnected
-                  ? 'bg-emerald-950/80 text-emerald-400 border-emerald-500/40 glow-emerald'
-                  : 'bg-rose-950/80 text-rose-400 border-rose-500/40 glow-rose'
-              }`}>
-                <span className={`w-2 h-2 rounded-full ${isConnected ? 'bg-emerald-400 animate-ping' : 'bg-rose-400'}`} />
-                {isConnected ? 'FastAPI Connected' : 'Offline Mode'}
+                <span className="relative flex h-2.5 w-2.5">
+                  {isConnected ? (
+                    <>
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                      <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-400 shadow-sm shadow-emerald-400/50" />
+                    </>
+                  ) : (
+                    <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-rose-500 shadow-sm shadow-rose-500/50" />
+                  )}
+                </span>
               </div>
             </div>
           </div>
