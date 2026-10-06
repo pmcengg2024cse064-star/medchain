@@ -274,7 +274,7 @@ export default function ConsortiumNetwork() {
                   </div>
                   <div className="flex justify-between items-center text-[11px]">
                     <span className="text-slate-400">Chaincode Version:</span>
-                    <span className="text-slate-200 font-mono">aurachain-cc:v3.2</span>
+                    <span className="text-slate-200 font-mono">medchain-cc:v3.2</span>
                   </div>
                 </div>
 

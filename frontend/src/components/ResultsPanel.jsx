@@ -10,7 +10,7 @@ export default function ResultsPanel({ result, isLoading }) {
           <div className="absolute inset-0 rounded-full border-4 border-indigo-500/20 animate-ping" />
           <div className="absolute inset-0 rounded-full border-4 border-t-cyan-400 border-r-indigo-500 border-b-emerald-400 border-l-transparent animate-spin" />
         </div>
-        <h3 className="text-lg font-bold text-white mb-1">AuraChain AI Inflight</h3>
+        <h3 className="text-lg font-bold text-white mb-1">AI Matching Inflight</h3>
         <p className="text-xs text-slate-400">Processing Gradient Boosting & Kaplan-Meier models...</p>
       </div>
     );

@@ -3,18 +3,20 @@ const fs = require("fs");
 const path = require("path");
 
 async function main() {
-  console.log("Deploying AuraChainLedger smart contract to local network...");
+  console.log("Deploying MedChainLedger smart contract to local network...");
 
-  const AuraChainLedger = await hre.ethers.getContractFactory("AuraChainLedger");
-  const ledger = await AuraChainLedger.deploy();
+  const contractName = "MedChainLedger";
+  const contractFactory = await hre.ethers.getContractFactory(contractName);
+
+  const ledger = await contractFactory.deploy();
   await ledger.waitForDeployment();
 
   const address = await ledger.getAddress();
-  console.log("✅ AuraChainLedger deployed successfully!");
+  console.log(`✅ ${contractName} deployed successfully!`);
   console.log("📍 Contract Address:", address);
 
   // Read compiled artifact
-  const artifact = await hre.artifacts.readArtifact("AuraChainLedger");
+  const artifact = await hre.artifacts.readArtifact(contractName);
   const contractData = {
     address: address,
     abi: artifact.abi
@@ -26,7 +28,7 @@ async function main() {
     fs.mkdirSync(frontendContractsDir, { recursive: true });
   }
 
-  const outputPath = path.join(frontendContractsDir, "AuraChainLedger.json");
+  const outputPath = path.join(frontendContractsDir, "MedChainLedger.json");
   fs.writeFileSync(outputPath, JSON.stringify(contractData, null, 2));
 
   console.log(`📄 Saved contract address & ABI to: ${outputPath}`);

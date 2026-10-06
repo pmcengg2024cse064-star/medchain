@@ -4,7 +4,7 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 
 app = FastAPI(
-    title="AuraChain AI Engine",
+    title="AI Organ Allocation Engine",
     description="Live AI Engine powering the Dean's Organ Allocation Architecture",
     version="1.0.0"
 )
@@ -35,7 +35,7 @@ class DonorRecipientPair(BaseModel):
 
 @app.get("/")
 def health_check():
-    return {"status": "Online", "engine": "AuraChain AI Engine is active."}
+    return {"status": "Online", "engine": "AI Organ Allocation Engine is active."}
 
 @app.post("/api/predict-match")
 def predict_match(pair: DonorRecipientPair):

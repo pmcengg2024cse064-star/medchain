@@ -70,7 +70,7 @@ export default function ProcessPipelineModal({ type, isOpen, onClose }) {
     },
     {
       title: "3. EVM Smart Contract State Execution",
-      desc: "Executing mintMatchRecord on AuraChainLedger.sol and mining transaction to block.",
+      desc: "Executing mintMatchRecord on MedChainLedger.sol and mining transaction to block.",
       icon: Database,
       color: "from-cyan-400 to-emerald-400",
       detail: "Writing immutable state payload & emitting MatchMinted event"

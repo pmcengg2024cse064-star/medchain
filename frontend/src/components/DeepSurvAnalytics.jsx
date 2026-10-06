@@ -41,7 +41,7 @@ export default function DeepSurvAnalytics({ result, survivalData, isLoading, onN
           <div className="absolute inset-0 rounded-full border-4 border-t-cyan-400 border-r-indigo-500 border-b-emerald-400 border-l-transparent animate-spin" />
         </div>
         <div className="space-y-2">
-          <h3 className="text-xl font-bold text-white">AuraChain DeepSurv Model Pipeline In-Flight</h3>
+          <h3 className="text-xl font-bold text-white">DeepSurv Model Pipeline In-Flight</h3>
           <p className="text-xs text-slate-400 max-w-md">
             Executing 100 Decision Trees, SHAP Feature Importance attributions &amp; Kaplan-Meier Hazard Ratios...
           </p>

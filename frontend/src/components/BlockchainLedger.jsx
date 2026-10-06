@@ -30,7 +30,7 @@ import {
   Play,
   CheckCircle
 } from 'lucide-react';
-import contractConfig from '../contracts/AuraChainLedger.json';
+import contractConfig from '../contracts/MedChainLedger.json';
 
 export default function BlockchainLedger({ result, formData }) {
   const [nodeStatus, setNodeStatus] = useState('checking');
@@ -259,7 +259,7 @@ export default function BlockchainLedger({ result, formData }) {
         allowTaint: true,
         logging: false,
         onclone: (clonedDoc) => {
-          const target = clonedDoc.getElementById('aurachain-official-certificate');
+          const target = clonedDoc.getElementById('medchain-official-certificate');
           if (target) {
             target.style.transform = 'none';
             target.style.boxShadow = 'none';
@@ -318,7 +318,7 @@ export default function BlockchainLedger({ result, formData }) {
       });
 
       pdf.addImage(imgData, 'PNG', 0, 0, canvas.width * 0.75, canvas.height * 0.75);
-      pdf.save(`AuraChain_SmartContract_Certificate_Block_${certificate?.blockNumber || '1001'}.pdf`);
+      pdf.save(`MedChain_SmartContract_Certificate_Block_${certificate?.blockNumber || '1001'}.pdf`);
     } catch (err) {
       console.error('PDF export failed:', err);
       alert(`PDF Export Error: ${err.message}`);
@@ -430,7 +430,7 @@ export default function BlockchainLedger({ result, formData }) {
             </h3>
 
             <p className="text-xs text-slate-400 leading-relaxed">
-              Execute <code className="text-cyan-300 bg-slate-950 px-1.5 py-0.5 rounded border border-slate-800 font-mono">AuraChainLedger.sol</code> to generate a keccak256 cryptographic digest of the clinical match vector and register an immutable organ allocation block.
+              Execute <code className="text-cyan-300 bg-slate-950 px-1.5 py-0.5 rounded border border-slate-800 font-mono">MedChainLedger.sol</code> to generate a keccak256 cryptographic digest of the clinical match vector and register an immutable organ allocation block.
             </p>
 
             <button
@@ -529,7 +529,7 @@ export default function BlockchainLedger({ result, formData }) {
             <div className="lg:col-span-8">
               <div 
                 ref={certRef}
-                id="aurachain-official-certificate"
+                id="medchain-official-certificate"
                 className="relative rounded-3xl p-8 sm:p-10 border-2 border-cyan-500/60 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 shadow-2xl overflow-hidden text-slate-100 space-y-8"
               >
                 {/* Guilloche Security Border Overlay */}
@@ -572,7 +572,7 @@ export default function BlockchainLedger({ result, formData }) {
 
                 {/* Document Body Description */}
                 <div className="text-xs text-slate-300 leading-relaxed font-sans bg-slate-900/80 border border-slate-800 p-4 rounded-2xl">
-                  This document serves as an official cryptographic certification that the organ allocation decision for Patient <strong className="text-cyan-300 font-mono">{certificate.patientId}</strong> and Donor <strong className="text-cyan-300 font-mono">{certificate.donorId}</strong> has been validated by the AuraChain AI DeepSurv Engine and permanently recorded to the Ethereum Localhost EVM blockchain under Block Number <strong className="text-emerald-400 font-mono">#{certificate.blockNumber}</strong>.
+                  This document serves as an official cryptographic certification that the organ allocation decision for Patient <strong className="text-cyan-300 font-mono">{certificate.patientId}</strong> and Donor <strong className="text-cyan-300 font-mono">{certificate.donorId}</strong> has been validated by the AI DeepSurv Engine and permanently recorded to the Ethereum Localhost EVM blockchain under Block Number <strong className="text-emerald-400 font-mono">#{certificate.blockNumber}</strong>.
                 </div>
 
                 {/* Formal Biometric & On-Chain Audit Table */}
@@ -626,7 +626,7 @@ export default function BlockchainLedger({ result, formData }) {
                 <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-center bg-slate-950 border border-cyan-500/40 p-4 rounded-2xl">
                   <div className="md:col-span-3 flex flex-col items-center justify-center p-2 bg-slate-900 border border-slate-800 rounded-xl space-y-1">
                     <QRCode
-                      value={certificate.txHash || 'https://aurachain.ai/verify'}
+                      value={certificate.txHash || 'https://medchain.network/verify'}
                       size={90}
                       bgColor="#020617"
                       fgColor="#06b6d4"
@@ -663,7 +663,7 @@ export default function BlockchainLedger({ result, formData }) {
 
                   <div className="space-y-1">
                     <div className="h-8 border-b border-slate-700 flex items-end pb-1 text-emerald-400 font-mono text-xs font-bold">
-                      0x7f8A...492b (AuraChain Node)
+                      0x7f8A...492b (Consortium Node)
                     </div>
                     <span className="text-[10px] font-mono text-slate-400 uppercase block">Consensus Automated Auditor</span>
                   </div>

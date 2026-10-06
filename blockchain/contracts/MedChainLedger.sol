@@ -2,10 +2,10 @@
 pragma solidity ^0.8.20;
 
 /**
- * @title AuraChainLedger
+ * @title MedChainLedger
  * @dev Immutable smart contract ledger for recording organ allocation AI match decisions on-chain.
  */
-contract AuraChainLedger {
+contract MedChainLedger {
     
     struct MatchRecord {
         string patientId;

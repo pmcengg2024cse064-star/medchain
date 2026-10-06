@@ -98,7 +98,7 @@
               "type": "address"
             }
           ],
-          "internalType": "struct AuraChainLedger.MatchRecord",
+          "internalType": "struct MedChainLedger.MatchRecord",
           "name": "",
           "type": "tuple"
         }
