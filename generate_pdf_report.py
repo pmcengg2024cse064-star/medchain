@@ -207,7 +207,7 @@ def build_pdf(filename):
     story.append(Paragraph("• <b>High-Precision Machine Learning Inference:</b> Predicts donor-recipient organ compatibility scores and 5-year post-transplant survival probabilities using Gradient Boosting classifiers.", bullet_style))
     story.append(Paragraph("• <b>Explainable AI & Survival Trajectories:</b> Computes SHAP (SHapley Additive exPlanations) feature attributions and models 60-month Kaplan-Meier hazard curves.", bullet_style))
     story.append(Paragraph("• <b>Phase 2 Global Bipartite Graph Optimization:</b> Uses the Hungarian Algorithm (Kuhn-Munkres algorithm) across a 5-hospital consortium network to maximize total organ compatibility while preserving 100% data privacy via score-only matrices.", bullet_style))
-    story.append(Paragraph("• <b>Phase 3 Blockchain Audit & Provenance:</b> Commits every approved organ allocation tuple to an Ethereum Virtual Machine (EVM) Solidity smart contract (<code>MedChainLedger.sol</code>), producing Keccak256 digests and ERC-721 Virtual NFT Digital Twin certificates.", bullet_style))
+    story.append(Paragraph("• <b>Phase 3 Blockchain Audit & Provenance:</b> Commits every approved organ allocation tuple to an Ethereum Virtual Machine (EVM) Solidity smart contract (<code>OrganAllocationLedger.sol</code>), producing Keccak256 digests and ERC-721 Virtual NFT Digital Twin certificates.", bullet_style))
     story.append(Spacer(1, 10))
 
     # ==================== SECTION 2: END-TO-END SYSTEM ARCHITECTURE ====================
@@ -238,7 +238,7 @@ def build_pdf(filename):
         [
             Paragraph("<b>Blockchain & Provenance</b>", body_style),
             Paragraph("Solidity ^0.8.20, Hardhat, Ethers.js v6, Keccak256, Hyperledger Fabric concept", body_style),
-            Paragraph("Smart contract ledger (<code>MedChainLedger.sol</code>), ERC-721 NFT twin, on-chain minting.", body_style)
+            Paragraph("Smart contract ledger (<code>OrganAllocationLedger.sol</code>), ERC-721 NFT twin, on-chain minting.", body_style)
         ],
         [
             Paragraph("<b>Export & Utilities</b>", body_style),
@@ -324,7 +324,7 @@ def build_pdf(filename):
         body_style
     ))
     story.append(Paragraph("• <b>Hardhat EVM Status & Live Terminal:</b> Real-time STDOUT log window capturing consensus rounds and block proposals.", bullet_style))
-    story.append(Paragraph("• <b>On-Chain Minting Engine:</b> Executes <code>MedChainLedger.mintMatchRecord(...)</code> to create a Keccak256 hash digest of the match tuple.", bullet_style))
+    story.append(Paragraph("• <b>On-Chain Minting Engine:</b> Executes <code>OrganAllocationLedger.mintMatchRecord(...)</code> to create a Keccak256 hash digest of the match tuple.", bullet_style))
     story.append(Paragraph("• <b>Official High-Grade Certificate:</b> Styled UI certificate with United States Organ Allocation Authority emblem, serial number, organ specs, Keccak256 digest, scannable QR code, signature lines, and official EVM seal.", bullet_style))
     story.append(Paragraph("• <b>Virtual 3D Holographic NFT Twin:</b> ERC-721 token card showing unique Token ID, IPFS metadata URI, and spinning organ core.", bullet_style))
     story.append(Paragraph("• <b>PDF Export:</b> Integrated canvas exporter allowing clinicians to download official PDF certificates.", bullet_style))
@@ -347,7 +347,7 @@ def build_pdf(filename):
     story.append(Paragraph("Follow this step-by-step procedure when operating the MedChain platform:", body_style))
     
     workflow_steps = [
-        ("Step 1: System Initialization", "Launch FastAPI backend (<code>uvicorn main:app --reload</code>) which automatically verifies/starts the local Hardhat EVM node on port 8545 and deploys <code>MedChainLedger.sol</code>."),
+        ("Step 1: System Initialization", "Launch FastAPI backend (<code>uvicorn main:app --reload</code>) which automatically verifies/starts the local Hardhat EVM node on port 8545 and deploys <code>OrganAllocationLedger.sol</code>."),
         ("Step 2: Network Audit", "Navigate to Tab 1 ('Consortium Network') to verify that all 5 hospital peer nodes are online and synchronized with low latency."),
         ("Step 3: Clinical Parameter Entry", "Navigate to Tab 2 ('Clinical Match Engine'). Select a preset (e.g. 'Optimal') or adjust sliders for donor-recipient parameters. Click 'Evaluate Organ Allocation & Survival'."),
         ("Step 4: Review AI & Survival Analytics", "Tab 3 ('DeepSurv Analytics') automatically opens. Review the AI Match Confidence Score, 5-Year Survival Expectancy, SHAP feature importances, and Kaplan-Meier trajectory curve."),
@@ -360,7 +360,7 @@ def build_pdf(filename):
     story.append(Spacer(1, 10))
 
     # ==================== SECTION 5: SMART CONTRACT CODE REFERENCE ====================
-    story.append(Paragraph("5. Smart Contract Specifications (MedChainLedger.sol)", h1_style))
+    story.append(Paragraph("5. Smart Contract Specifications (OrganAllocationLedger.sol)", h1_style))
     story.append(Paragraph(
         "Below is the core Solidity smart contract deployed on the EVM blockchain layer for storing immutable organ match records:",
         body_style
@@ -369,7 +369,7 @@ def build_pdf(filename):
     contract_snippet = (
         "// SPDX-License-Identifier: MIT\n"
         "pragma solidity ^0.8.20;\n\n"
-        "contract MedChainLedger {\n"
+        "contract OrganAllocationLedger {\n"
         "    struct MatchRecord {\n"
         "        string patientId;\n"
         "        string donorId;\n"

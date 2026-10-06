@@ -3,9 +3,9 @@ const fs = require("fs");
 const path = require("path");
 
 async function main() {
-  console.log("Deploying MedChainLedger smart contract to local network...");
+  console.log("Deploying OrganAllocationLedger smart contract to local network...");
 
-  const contractName = "MedChainLedger";
+  const contractName = "OrganAllocationLedger";
   const contractFactory = await hre.ethers.getContractFactory(contractName);
 
   const ledger = await contractFactory.deploy();
@@ -28,7 +28,7 @@ async function main() {
     fs.mkdirSync(frontendContractsDir, { recursive: true });
   }
 
-  const outputPath = path.join(frontendContractsDir, "MedChainLedger.json");
+  const outputPath = path.join(frontendContractsDir, "OrganAllocationLedger.json");
   fs.writeFileSync(outputPath, JSON.stringify(contractData, null, 2));
 
   console.log(`📄 Saved contract address & ABI to: ${outputPath}`);

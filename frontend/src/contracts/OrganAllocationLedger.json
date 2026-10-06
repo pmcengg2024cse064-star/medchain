@@ -98,7 +98,7 @@
               "type": "address"
             }
           ],
-          "internalType": "struct MedChainLedger.MatchRecord",
+          "internalType": "struct OrganAllocationLedger.MatchRecord",
           "name": "",
           "type": "tuple"
         }

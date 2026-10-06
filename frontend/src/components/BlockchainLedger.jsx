@@ -30,7 +30,7 @@ import {
   Play,
   CheckCircle
 } from 'lucide-react';
-import contractConfig from '../contracts/MedChainLedger.json';
+import contractConfig from '../contracts/OrganAllocationLedger.json';
 
 export default function BlockchainLedger({ result, formData }) {
   const [nodeStatus, setNodeStatus] = useState('checking');
@@ -318,7 +318,7 @@ export default function BlockchainLedger({ result, formData }) {
       });
 
       pdf.addImage(imgData, 'PNG', 0, 0, canvas.width * 0.75, canvas.height * 0.75);
-      pdf.save(`MedChain_SmartContract_Certificate_Block_${certificate?.blockNumber || '1001'}.pdf`);
+      pdf.save(`OrganAllocation_SmartContract_Certificate_Block_${certificate?.blockNumber || '1001'}.pdf`);
     } catch (err) {
       console.error('PDF export failed:', err);
       alert(`PDF Export Error: ${err.message}`);
@@ -430,7 +430,7 @@ export default function BlockchainLedger({ result, formData }) {
             </h3>
 
             <p className="text-xs text-slate-400 leading-relaxed">
-              Execute <code className="text-cyan-300 bg-slate-950 px-1.5 py-0.5 rounded border border-slate-800 font-mono">MedChainLedger.sol</code> to generate a keccak256 cryptographic digest of the clinical match vector and register an immutable organ allocation block.
+              Execute <code className="text-cyan-300 bg-slate-950 px-1.5 py-0.5 rounded border border-slate-800 font-mono">OrganAllocationLedger.sol</code> to generate a keccak256 cryptographic digest of the clinical match vector and register an immutable organ allocation block.
             </p>
 
             <button

@@ -64,7 +64,7 @@ def ensure_hardhat_node():
         subprocess.Popen(["npx", "hardhat", "node"], cwd=blockchain_dir, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         time.sleep(3.5)
         subprocess.Popen(["npx", "hardhat", "run", "scripts/deploy.js", "--network", "localhost"], cwd=blockchain_dir, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-        print("[OK] Hardhat node started and MedChainLedger contract deployed!")
+        print("[OK] Hardhat node started and OrganAllocationLedger contract deployed!")
     except Exception as e:
         print(f"[WARN] Could not start Hardhat background node: {e}")
 
